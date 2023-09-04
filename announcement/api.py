@@ -1,12 +1,22 @@
 from rest_framework.views import APIView, View
-from rest_framework.generics import RetrieveAPIView, UpdateAPIView, DestroyAPIView, CreateAPIView
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.generics import (
+    RetrieveAPIView, 
+    UpdateAPIView, 
+    DestroyAPIView, 
+    CreateAPIView, 
+    RetrieveUpdateDestroyAPIView
+)
+
 from rest_framework.views import Response
-from .models import Announcement
+from .models import Announcement, Category, SubCategory
 from .serializers import (
     AnnouncementListSerializer, 
     AnnouncementCreatListSerializer, 
     AnnouncementRetrieveListSerializer,
-    AnnouncementSerializer
+    AnnouncementSerializer,
+    CategorySerializer,
+    SubcategorySerializer,
 )
 
 
@@ -24,21 +34,42 @@ class MentorView(APIView):
             return Response(serializer.data, status=201)
        
 
-class AnnouncementRetrieveView(RetrieveAPIView):
+# class AnnouncementRetrieveView(RetrieveAPIView):
+#     queryset = Announcement.objects.all()
+#     serializer_class = AnnouncementSerializer
+
+
+# class AnnouncementUpdateView(UpdateAPIView):
+#     queryset = Announcement.objects.all()
+#     serializer_class = AnnouncementSerializer
+
+
+# class AnnouncementDeleteView(DestroyAPIView):
+#     queryset = Announcement.objects.all()
+#     serializer_class = AnnouncementSerializer
+
+
+# class AnnouncementCreateView(CreateAPIView):
+#     queryset = Announcement.objects.all()
+#     serializer_class = AnnouncementSerializer
+
+
+# class RetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+#     queryset = Announcement.objects.all()
+#     serializer_class = AnnouncementSerializer
+
+
+class CategoryViewSet(ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class SubCategoryViewSet(ModelViewSet):
+    queryset = SubCategory.objects.all()
+    serializer_class = SubcategorySerializer
+
+
+class AnnouncementViewSet(ModelViewSet):
     queryset = Announcement.objects.all()
     serializer_class = AnnouncementSerializer
 
-
-class AnnouncementUpdateView(UpdateAPIView):
-    queryset = Announcement.objects.all()
-    serializer_class = AnnouncementSerializer
-
-
-class AnnouncementDeleteView(DestroyAPIView):
-    queryset = Announcement.objects.all()
-    serializer_class = AnnouncementSerializer
-
-
-class AnnouncementCreateView(CreateAPIView):
-    queryset = Announcement.objects.all()
-    serializer_class = AnnouncementSerializer
